@@ -1,0 +1,275 @@
+{
+  "meta": {
+    "name": "Michigan Model Criminal Jury Instructions (M Crim JI) - office library",
+    "libraryVersion": "0.1.0",
+    "lastUpdated": "2026-10-13",
+    "note": "STARTER LIBRARY. All instruction text is placeholder text. Paste the official language from the Michigan Courts M Crim JI site into each 'text' field, then confirm the number, title, MCL list, and lastAmended date. Entries with number 'TBD' need the correct M Crim JI number. See README.md."
+  },
+  "instructions": [
+    {
+      "id": "std-3-1",
+      "number": "3.1",
+      "title": "Duties of Judge and Jury",
+      "category": "standard",
+      "group": "Final Instructions",
+      "position": "beginning",
+      "mcl": [],
+      "text": "[PLACEHOLDER - paste the official text of M Crim JI 3.1 here.]",
+      "lastAmended": ""
+    },
+    {
+      "id": "std-3-2",
+      "number": "3.2",
+      "title": "Presumption of Innocence, Burden of Proof, and Reasonable Doubt",
+      "category": "standard",
+      "group": "Final Instructions",
+      "position": "beginning",
+      "mcl": [],
+      "text": "[PLACEHOLDER - paste the official text of M Crim JI 3.2 here.]",
+      "lastAmended": ""
+    },
+    {
+      "id": "std-3-5",
+      "number": "3.5",
+      "title": "Evidence",
+      "category": "standard",
+      "group": "Final Instructions",
+      "position": "beginning",
+      "mcl": [],
+      "text": "[PLACEHOLDER - paste the official text of M Crim JI 3.5 here.]",
+      "lastAmended": ""
+    },
+    {
+      "id": "std-3-6",
+      "number": "3.6",
+      "title": "Witnesses - Credibility",
+      "category": "standard",
+      "group": "Final Instructions",
+      "position": "beginning",
+      "mcl": [],
+      "text": "[PLACEHOLDER - paste the official text of M Crim JI 3.6 here.]",
+      "lastAmended": ""
+    },
+    {
+      "id": "std-3-11",
+      "number": "3.11",
+      "title": "Deliberations and Verdict",
+      "category": "standard",
+      "group": "Final Instructions",
+      "position": "end",
+      "mcl": [],
+      "text": "[PLACEHOLDER - paste the official text of M Crim JI 3.11 here.]",
+      "lastAmended": ""
+    },
+
+    {
+      "id": "elem-20-1",
+      "number": "20.1",
+      "title": "Criminal Sexual Conduct in the First Degree",
+      "category": "elements",
+      "group": "Sex Offenses",
+      "mcl": ["750.520b"],
+      "text": "[PLACEHOLDER - paste the official text of M Crim JI 20.1 here. Example placeholder use: The defendant, {{DEFENDANT}}, is charged in Count {{COUNT}} with ... alleged to have occurred on {{DATE}} ...]",
+      "lastAmended": ""
+    },
+    {
+      "id": "elem-20-2",
+      "number": "20.2",
+      "title": "Criminal Sexual Conduct in the Second Degree",
+      "category": "elements",
+      "group": "Sex Offenses",
+      "mcl": ["750.520c"],
+      "text": "[PLACEHOLDER - paste the official text of M Crim JI 20.2 here.]",
+      "lastAmended": ""
+    },
+    {
+      "id": "elem-20-12",
+      "number": "20.12",
+      "title": "Criminal Sexual Conduct in the Third Degree",
+      "category": "elements",
+      "group": "Sex Offenses",
+      "mcl": ["750.520d"],
+      "text": "[PLACEHOLDER - paste the official text of M Crim JI 20.12 here.]",
+      "lastAmended": ""
+    },
+    {
+      "id": "elem-20-13",
+      "number": "20.13",
+      "title": "Criminal Sexual Conduct in the Fourth Degree",
+      "category": "elements",
+      "group": "Sex Offenses",
+      "mcl": ["750.520e"],
+      "text": "[PLACEHOLDER - paste the official text of M Crim JI 20.13 here.]",
+      "lastAmended": ""
+    },
+    {
+      "id": "elem-assault-intent-csc",
+      "number": "TBD",
+      "title": "Assault with Intent to Commit Criminal Sexual Conduct",
+      "category": "elements",
+      "group": "Sex Offenses",
+      "mcl": ["750.520g"],
+      "text": "[PLACEHOLDER - paste the official elements instruction for MCL 750.520g here and set the correct M Crim JI number.]",
+      "lastAmended": ""
+    },
+    {
+      "id": "elem-csam",
+      "number": "TBD",
+      "title": "Child Sexually Abusive Activity or Material",
+      "category": "elements",
+      "group": "Sex Offenses",
+      "mcl": ["750.145c"],
+      "text": "[PLACEHOLDER - paste the official elements instruction for MCL 750.145c here and set the correct M Crim JI number. If the office uses separate instructions for production, distribution, and possession, split this entry and use subsection citations such as 750.145c(2), 750.145c(3), 750.145c(4).]",
+      "lastAmended": ""
+    },
+    {
+      "id": "elem-accosting",
+      "number": "TBD",
+      "title": "Accosting, Enticing, or Soliciting a Child for an Immoral Purpose",
+      "category": "elements",
+      "group": "Sex Offenses",
+      "mcl": ["750.145a"],
+      "text": "[PLACEHOLDER - paste the official elements instruction for MCL 750.145a here and set the correct M Crim JI number.]",
+      "lastAmended": ""
+    },
+    {
+      "id": "elem-computer-crime",
+      "number": "TBD",
+      "title": "Using a Computer to Commit a Crime",
+      "category": "elements",
+      "group": "Computer Offenses",
+      "mcl": ["752.796"],
+      "text": "[PLACEHOLDER - paste the official elements instruction for MCL 752.796 here and set the correct M Crim JI number.]",
+      "lastAmended": ""
+    },
+    {
+      "id": "elem-child-abuse-1",
+      "number": "TBD",
+      "title": "Child Abuse in the First Degree",
+      "category": "elements",
+      "group": "Child Abuse",
+      "mcl": ["750.136b(2)"],
+      "text": "[PLACEHOLDER - paste the official elements instruction for MCL 750.136b(2) here and set the correct M Crim JI number.]",
+      "lastAmended": ""
+    },
+    {
+      "id": "elem-child-abuse-2",
+      "number": "TBD",
+      "title": "Child Abuse in the Second Degree",
+      "category": "elements",
+      "group": "Child Abuse",
+      "mcl": ["750.136b(3)"],
+      "text": "[PLACEHOLDER - paste the official elements instruction for MCL 750.136b(3) here and set the correct M Crim JI number.]",
+      "lastAmended": ""
+    },
+    {
+      "id": "elem-child-abuse-3",
+      "number": "TBD",
+      "title": "Child Abuse in the Third Degree",
+      "category": "elements",
+      "group": "Child Abuse",
+      "mcl": ["750.136b(5)"],
+      "text": "[PLACEHOLDER - paste the official elements instruction for MCL 750.136b(5) here and set the correct M Crim JI number.]",
+      "lastAmended": ""
+    },
+    {
+      "id": "elem-child-abuse-4",
+      "number": "TBD",
+      "title": "Child Abuse in the Fourth Degree",
+      "category": "elements",
+      "group": "Child Abuse",
+      "mcl": ["750.136b(7)"],
+      "text": "[PLACEHOLDER - paste the official elements instruction for MCL 750.136b(7) here and set the correct M Crim JI number.]",
+      "lastAmended": ""
+    },
+
+    {
+      "id": "opt-3-3",
+      "number": "3.3",
+      "title": "Defendant Not Testifying",
+      "category": "optional",
+      "group": "Final Instructions",
+      "position": "beginning",
+      "mcl": [],
+      "text": "[PLACEHOLDER - confirm the number and paste the official text here.]",
+      "lastAmended": ""
+    },
+    {
+      "id": "opt-20-25",
+      "number": "20.25",
+      "title": "Testimony of Complainant Need Not Be Corroborated",
+      "category": "optional",
+      "group": "Sex Offenses",
+      "position": "beginning",
+      "mcl": [],
+      "text": "[PLACEHOLDER - confirm the number and title, then paste the official text here.]",
+      "lastAmended": ""
+    },
+    {
+      "id": "opt-other-acts-child",
+      "number": "TBD",
+      "title": "Evidence of Other Acts of Child Sexual Abuse (MCL 768.27a)",
+      "category": "optional",
+      "group": "Evidence",
+      "position": "beginning",
+      "mcl": [],
+      "text": "[PLACEHOLDER - paste the official text here and set the correct M Crim JI number.]",
+      "lastAmended": ""
+    },
+    {
+      "id": "opt-other-acts-404b",
+      "number": "TBD",
+      "title": "Limited Use of Other-Acts Evidence (MRE 404(b))",
+      "category": "optional",
+      "group": "Evidence",
+      "position": "beginning",
+      "mcl": [],
+      "text": "[PLACEHOLDER - paste the official text here and set the correct M Crim JI number.]",
+      "lastAmended": ""
+    },
+    {
+      "id": "opt-expert-witness",
+      "number": "TBD",
+      "title": "Expert Witness",
+      "category": "optional",
+      "group": "Witnesses",
+      "position": "beginning",
+      "mcl": [],
+      "text": "[PLACEHOLDER - paste the official text here and set the correct M Crim JI number.]",
+      "lastAmended": ""
+    },
+    {
+      "id": "opt-defendant-statements",
+      "number": "TBD",
+      "title": "Defendant's Statements as Evidence Against Defendant",
+      "category": "optional",
+      "group": "Evidence",
+      "position": "beginning",
+      "mcl": [],
+      "text": "[PLACEHOLDER - paste the official text here and set the correct M Crim JI number.]",
+      "lastAmended": ""
+    },
+    {
+      "id": "opt-flight",
+      "number": "TBD",
+      "title": "Flight, Concealment, or Other Consciousness of Guilt",
+      "category": "optional",
+      "group": "Evidence",
+      "position": "beginning",
+      "mcl": [],
+      "text": "[PLACEHOLDER - paste the official text here and set the correct M Crim JI number.]",
+      "lastAmended": ""
+    },
+    {
+      "id": "opt-multiple-counts",
+      "number": "TBD",
+      "title": "Multiple Counts - Separate Consideration",
+      "category": "optional",
+      "group": "Final Instructions",
+      "position": "end",
+      "mcl": [],
+      "text": "[PLACEHOLDER - paste the official text here and set the correct M Crim JI number.]",
+      "lastAmended": ""
+    }
+  ]
+}

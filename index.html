@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Blocks every network request except files that sit next to this page. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; worker-src 'self' blob:; object-src 'none'; form-action 'none'; base-uri 'none'">
+<title>Jury Instruction Builder</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-title">Jury Instruction Builder</div>
+    <div class="brand-sub">People's Proposed Jury Instructions &middot; Oakland County Circuit Court</div>
+  </div>
+  <div class="topbar-right">
+    <span class="offline-badge" title="Everything runs in this browser tab. Nothing is uploaded or sent anywhere.">&#128274; Offline &middot; no data leaves this computer</span>
+    <button type="button" class="btn ghost small" id="btn-save-draft" title="Save your work to a file on this computer">Save draft</button>
+    <label class="btn ghost small" title="Open a draft file you saved earlier">Open draft<input type="file" id="draft-input" accept=".json,application/json" hidden></label>
+  </div>
+</header>
+
+<nav class="steps" id="steps">
+  <button type="button" data-step="1" class="step active"><span>1</span>Case</button>
+  <button type="button" data-step="2" class="step"><span>2</span>Instructions</button>
+  <button type="button" data-step="3" class="step"><span>3</span>Review &amp; Edit</button>
+  <button type="button" data-step="4" class="step"><span>4</span>Export</button>
+</nav>
+
+<div id="library-banner" class="banner hidden"></div>
+
+<main>
+  <!-- STEP 1: CASE -->
+  <section class="panel" data-panel="1">
+    <div class="card">
+      <h2>Upload the Information</h2>
+      <p class="muted">PDF or Word (.docx). The file is read inside this browser tab only. Scanned PDFs without a text layer can't be read; enter the case manually below.</p>
+      <label class="dropzone" id="dropzone">
+        <input type="file" id="file-input" accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document" hidden>
+        <div class="dz-icon">&#128196;</div>
+        <div><strong>Drop the Information here</strong> or click to choose a file</div>
+        <div class="muted small" id="file-status">No file loaded</div>
+      </label>
+      <details class="rawtext hidden" id="raw-details">
+        <summary>Show extracted text</summary>
+        <pre id="raw-text"></pre>
+      </details>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <h2>Case information</h2>
+        <span class="muted small">Check everything. Extraction is a starting point, not a guarantee.</span>
+      </div>
+      <div class="grid3">
+        <label>Defendant
+          <div class="inline">
+            <input type="text" id="f-defendant" placeholder="Full name">
+            <button type="button" class="btn ghost small" id="btn-titlecase" title="Convert ALL CAPS to Title Case">Aa</button>
+          </div>
+        </label>
+        <label>Case number<input type="text" id="f-case" placeholder="e.g. 2026-000000-FC"></label>
+        <label>Judge<input type="text" id="f-judge" placeholder="e.g. Jane Doe"></label>
+      </div>
+
+      <div class="card-head counts-head">
+        <h3>Counts</h3>
+        <button type="button" class="btn small" id="btn-add-count">+ Add count</button>
+      </div>
+      <div id="counts"></div>
+      <p class="muted small">MCL: list each citation separated by commas, e.g. <code>750.520b(1)(a)</code>. The first citation that matches an elements instruction is used. Complainant is optional and only fills <code>{{COMPLAINANT}}</code> (use initials).</p>
+    </div>
+
+    <div class="actions">
+      <button type="button" class="btn primary" id="btn-compile">Compile instructions &rarr;</button>
+    </div>
+  </section>
+
+  <!-- STEP 2: INSTRUCTIONS -->
+  <section class="panel hidden" data-panel="2">
+    <div class="two-col">
+      <div>
+        <div class="card">
+          <div class="card-head">
+            <h2>Compiled set</h2>
+            <button type="button" class="btn ghost small" id="btn-recompile" title="Rebuild from scratch using the current case data. Your edits and add-ons will be cleared.">Rebuild</button>
+          </div>
+          <div id="flags"></div>
+          <div id="compiled-summary"></div>
+        </div>
+      </div>
+      <div>
+        <div class="card sticky">
+          <h2>Optional instructions</h2>
+          <input type="search" id="opt-search" placeholder="Search by number, title, or text&hellip;">
+          <div id="optional-list" class="optional-list"></div>
+        </div>
+      </div>
+    </div>
+    <div class="actions">
+      <button type="button" class="btn" data-goto="1">&larr; Back</button>
+      <button type="button" class="btn primary" data-goto="3">Review &amp; edit &rarr;</button>
+    </div>
+  </section>
+
+  <!-- STEP 3: REVIEW -->
+  <section class="panel hidden" data-panel="3">
+    <div class="card">
+      <div class="card-head">
+        <h2>Review &amp; edit</h2>
+        <span class="muted small">Drag <span class="kbd">&#8942;&#8942;</span> or use the arrows to reorder. Edits change this case only, not the library.</span>
+      </div>
+      <div id="review-warnings"></div>
+      <ol id="review-list" class="review-list"></ol>
+    </div>
+    <div class="actions">
+      <button type="button" class="btn" data-goto="2">&larr; Back</button>
+      <button type="button" class="btn primary" data-goto="4">Export &rarr;</button>
+    </div>
+  </section>
+
+  <!-- STEP 4: EXPORT -->
+  <section class="panel hidden" data-panel="4">
+    <div class="two-col">
+      <div class="card">
+        <h2>Caption &amp; signature</h2>
+        <p class="muted small">These settings are remembered in this browser (no case data is stored).</p>
+        <label>Court name (one line per row, printed under STATE OF MICHIGAN)<textarea id="s-court" rows="2"></textarea></label>
+        <div class="grid2">
+          <label>Prosecuting Attorney (optional)<input type="text" id="s-pa" placeholder="Name of elected Prosecuting Attorney"></label>
+          <label>Office<input type="text" id="s-office"></label>
+        </div>
+        <div class="grid2">
+          <label>Assistant Prosecuting Attorney<input type="text" id="s-apa" placeholder="Your name"></label>
+          <label>APA bar number<input type="text" id="s-apa-p" placeholder="P00000"></label>
+        </div>
+        <label>Office address (one line per row)<textarea id="s-address" rows="3"></textarea></label>
+        <div class="grid2">
+          <label>Phone / email (optional)<input type="text" id="s-contact"></label>
+          <label>Defense counsel &amp; P number (optional)<input type="text" id="s-defense" placeholder="e.g. John Smith (P11111)"></label>
+        </div>
+        <label>Opening paragraph<textarea id="s-intro" rows="4"></textarea></label>
+        <label>Closing paragraph (optional)<textarea id="s-closing" rows="2"></textarea></label>
+      </div>
+      <div class="card">
+        <h2>Document options</h2>
+        <label>Line spacing for instruction text
+          <select id="s-spacing">
+            <option value="1">Single</option>
+            <option value="1.5">1.5</option>
+            <option value="2">Double</option>
+          </select>
+        </label>
+        <label class="check"><input type="checkbox" id="s-newpage"> Start each instruction on a new page</label>
+        <label class="check"><input type="checkbox" id="s-given"> Add a Given / Refused / Modified line under each instruction</label>
+        <label class="check"><input type="checkbox" id="s-count-label" checked> Show "(Count N)" after elements instruction headings</label>
+        <label>Date on signature block<input type="date" id="s-date"></label>
+        <div id="export-warnings"></div>
+        <button type="button" class="btn primary big" id="btn-export">Download .docx</button>
+        <p class="muted small">File name: <span id="export-name"></span></p>
+      </div>
+    </div>
+    <div class="actions">
+      <button type="button" class="btn" data-goto="3">&larr; Back</button>
+    </div>
+  </section>
+</main>
+
+<!-- Library picker (used when the page is opened directly from disk) -->
+<div class="modal hidden" id="lib-modal">
+  <div class="modal-box">
+    <h2>Load the instruction library</h2>
+    <p>Your browser won't let a page opened directly from a folder read <code>instructions.json</code> on its own. Choose the file once; it will be remembered in this browser until you load a newer one.</p>
+    <label class="btn primary">Choose instructions.json<input type="file" id="lib-input" accept=".json,application/json" hidden></label>
+    <p class="muted small">Or start the app with a local web server &mdash; see README.md.</p>
+  </div>
+</div>
+
+<div id="toast" class="toast hidden"></div>
+
+<script src="vendor/pdf.min.js"></script>
+<script src="vendor/mammoth.browser.min.js"></script>
+<script src="vendor/docx.iife.js"></script>
+<script src="js/parse.js"></script>
+<script src="js/export.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

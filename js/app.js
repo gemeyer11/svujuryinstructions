@@ -143,6 +143,7 @@
         category: e.category,
         group: e.group || (e.category === 'optional' ? 'Other' : ''),
         position: e.position === 'end' ? 'end' : 'beginning',
+        order: e.order != null && e.order !== '' && Number.isFinite(Number(e.order)) ? Number(e.order) : null,
         mcl: Array.isArray(e.mcl) ? e.mcl.map(String) : [],
         text: Array.isArray(e.text) ? e.text.join('\n') : String(e.text || ''),
         lastAmended: e.lastAmended || '',
@@ -370,7 +371,9 @@
 
   function fullCompile() {
     if (!library) { toast('Load the instruction library first.'); return; }
-    const std = library.instructions.filter((i) => i.category === 'standard').sort((a, b) => cmpNum(a.number, b.number));
+    // Standard instructions follow their "order" field; any without one go after, by number.
+    const std = library.instructions.filter((i) => i.category === 'standard').sort((a, b) =>
+      (a.order ?? Infinity) - (b.order ?? Infinity) || cmpNum(a.number, b.number));
     const begin = std.filter((i) => i.position !== 'end').map((i) => makeItem(i, null, true));
     const end = std.filter((i) => i.position === 'end').map((i) => makeItem(i, null, true));
     const elems = [];
@@ -448,6 +451,10 @@
     return [...new Set([...(text || '').matchAll(PH_RX)].map((m) => m[1]))];
   }
 
+  function titleHtml(t) {
+    return t && t.trim() ? esc(t) : '<span class="muted">(title needed)</span>';
+  }
+
   function previewHtml(text) {
     return esc(text)
       .replace(/\{\{\s*([A-Z_]+)\s*\}\}/g, '<span class="ph" title="No value for this placeholder">{{$1}}</span>')
@@ -480,6 +487,8 @@
     }
     const noNum = state.items.filter((it) => !it.number || /^tbd$/i.test(it.number)).map((it) => it.title);
     if (noNum.length) w.push({ level: 'warn', msg: `No M Crim JI number yet: ${noNum.join('; ')}.` });
+    const noTitle = state.items.filter((it) => !it.title.trim()).map((it) => it.number);
+    if (noTitle.length) w.push({ level: 'warn', msg: `No title yet (heading will show only the number): M Crim JI ${noTitle.join(', ')}.` });
     return w;
   }
 
@@ -531,7 +540,7 @@
       <div class="summary-group"><h3>${name} (${list.length})</h3>
       ${list.length ? list.map((it) => {
         const c = it.countId && state.counts.find((x) => x.id === it.countId);
-        return `<div class="summary-item"><span class="num">M Crim JI ${esc(it.number)}</span><span>${esc(it.title)}${c ? ' <span class="muted">(Count ' + esc(c.number) + ')</span>' : ''}</span>
+        return `<div class="summary-item"><span class="num">M Crim JI ${esc(it.number)}</span><span>${titleHtml(it.title)}${c ? ' <span class="muted">(Count ' + esc(c.number) + ')</span>' : ''}</span>
           ${isPlaceholderText(it.text) ? '<span class="tag ph">placeholder text</span>' : ''}</div>`;
       }).join('') : '<div class="empty">None</div>'}</div>`).join('');
 
@@ -576,7 +585,7 @@
         <div class="ri-head">
           <span class="ri-handle" title="Drag to reorder">&#8942;&#8942;</span>
           <span class="ri-idx">${i + 1}.</span>
-          <span class="ri-title"><span class="num">M Crim JI ${esc(it.number)}</span>${esc(it.title)}</span>
+          <span class="ri-title"><span class="num">M Crim JI ${esc(it.number)}</span>${titleHtml(it.title)}</span>
           <span class="tag ${it.category}">${it.category}</span>
           ${it.edited ? '<span class="tag">edited</span>' : ''}
           <span class="ri-tools">

@@ -148,6 +148,10 @@
         text: Array.isArray(e.text) ? e.text.join('\n') : String(e.text || ''),
         lastAmended: e.lastAmended || '',
         ifApplicable: !!e.ifApplicable,
+        autoIf: e.autoIf && typeof e.autoIf === 'object' ? {
+          mcl: Array.isArray(e.autoIf.mcl) ? e.autoIf.mcl.map(String) : [],
+          offense: Array.isArray(e.autoIf.offense) ? e.autoIf.offense.map((x) => String(x).toLowerCase()) : [],
+        } : null,
       });
     });
     return { errors, instructions: out, meta: (data && data.meta) || {} };
@@ -359,6 +363,25 @@
     return hits;
   }
 
+  // Instructions added once per case when any count meets their "autoIf"
+  // rule (e.g. every CSC case gets 3.10a, 20.25 and 20.26). A count matches on
+  // its MCL citation, or on its offense description if it has no citation.
+  function triggeredInstructions() {
+    if (!library) return [];
+    const out = [];
+    library.instructions.forEach((ins, idx) => {
+      if (!ins.autoIf || ins.category === 'standard') return;
+      const counts = state.counts.filter((c) => {
+        const cites = countMcl(c);
+        if (cites.length) return cites.some((ct) => ins.autoIf.mcl.some((l) => P.mclMatchScore(ct, l)));
+        const desc = (c.description || '').toLowerCase();
+        return ins.autoIf.offense.some((o) => desc.includes(o));
+      });
+      if (counts.length) out.push({ ins, counts, idx });
+    });
+    return out.sort((a, b) => (a.ins.order ?? Infinity) - (b.ins.order ?? Infinity) || a.idx - b.idx);
+  }
+
   function makeItem(ins, countId = null, auto = false) {
     return {
       uid: uid(), libId: ins.id, number: ins.number, title: ins.title, category: ins.category,
@@ -367,7 +390,7 @@
   }
 
   function countSignature() {
-    return JSON.stringify(state.counts.map((c) => [c.id, countMcl(c)]));
+    return JSON.stringify(state.counts.map((c) => [c.id, countMcl(c), countMcl(c).length ? '' : c.description]));
   }
 
   function fullCompile() {
@@ -379,7 +402,10 @@
     const end = std.filter((i) => i.position === 'end').map((i) => makeItem(i, null, true));
     const elems = [];
     for (const c of state.counts) for (const ins of matchElements(c)) elems.push(makeItem(ins, c.id, true));
-    state.items = [...begin, ...elems, ...end];
+    const trig = triggeredInstructions();
+    const extra = trig.map((t) => Object.assign(makeItem(t.ins, null, true), { triggered: true }));
+    state.items = [...begin, ...elems, ...extra, ...end];
+    state.triggeredIds = trig.map((t) => t.ins.id);
     state.compiled = true;
     state.compiledSig = countSignature();
   }
@@ -399,6 +425,17 @@
         insertItem(makeItem(ins, c.id, true));
       }
     }
+    // Charge-triggered instructions: drop ones no longer triggered (unless
+    // edited); add newly triggered ones. One the user removed stays removed.
+    const trig = triggeredInstructions();
+    const now = new Set(trig.map((t) => t.ins.id));
+    const before = new Set(state.triggeredIds || []);
+    state.items = state.items.filter((it) => !(it.triggered && !it.edited && !now.has(it.libId)));
+    for (const t of trig) {
+      if (before.has(t.ins.id) || state.items.some((it) => it.libId === t.ins.id)) continue;
+      insertItem(Object.assign(makeItem(t.ins, null, true), { triggered: true }));
+    }
+    state.triggeredIds = [...now];
     state.compiledSig = countSignature();
   }
 
@@ -472,6 +509,11 @@
         w.push({ level: 'err', msg: `Count ${c.number} (${c.description || 'no description'}) has no elements instruction.` });
       }
     }
+    for (const t of triggeredInstructions()) {
+      if (!state.items.some((it) => it.libId === t.ins.id)) {
+        w.push({ level: 'warn', msg: `M Crim JI ${t.ins.number} ${t.ins.title} is normally given when Count ${t.counts.map((c) => c.number).join(', ')} is charged, but it was removed.` });
+      }
+    }
     const stillPh = state.items.filter((it) => isPlaceholderText(it.text)).map((it) => it.number);
     if (stillPh.length) {
       w.push({ level: 'err', msg: `${stillPh.length} instruction(s) still have placeholder text instead of the official language: M Crim JI ${stillPh.join(', ')}.` });
@@ -522,6 +564,10 @@
           ${elementsLib.map((i) => `<option value="${esc(i.id)}">M Crim JI ${esc(i.number)} &ndash; ${esc(i.title)} (${esc(i.mcl.join(', '))})</option>`).join('')}
           </select></div>`);
       }
+    }
+    for (const t of triggeredInstructions()) {
+      const inSet = state.items.some((it) => it.libId === t.ins.id);
+      html.push(`<div class="flag ${inSet ? 'ok' : 'warn'}">M Crim JI ${esc(t.ins.number)} ${esc(t.ins.title)} &ndash; required by Count ${t.counts.map((c) => esc(c.number)).join(', ')}${inSet ? ' (added)' : ' &ndash; <strong>removed</strong>; re-check it in the list at right to add it back'}.</div>`);
     }
     flags.innerHTML = html.join('');
     const sync = $('#btn-sync');
@@ -732,7 +778,7 @@
   function saveDraft() {
     const data = {
       kind: 'jury-instruction-draft', version: 1, savedAt: new Date().toISOString(),
-      caseInfo: state.caseInfo, counts: state.counts, compiled: state.compiled, compiledSig: state.compiledSig,
+      caseInfo: state.caseInfo, counts: state.counts, compiled: state.compiled, compiledSig: state.compiledSig, triggeredIds: state.triggeredIds,
       items: state.items.map(({ editing, ...rest }) => rest),
     };
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
@@ -750,6 +796,7 @@
       state.items = data.items || [];
       state.compiled = !!data.compiled;
       state.compiledSig = data.compiledSig;
+      state.triggeredIds = data.triggeredIds || [];
       renderCaseFields();
       renderCounts();
       goto(state.items.length ? 3 : 1);

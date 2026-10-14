@@ -791,14 +791,72 @@
       "lastAmended": ""
     },
     {
-      "id": "opt-20-25",
-      "number": "20.25",
-      "title": "Testimony of Complainant Need Not Be Corroborated",
+      "id": "opt-3-10a",
+      "number": "3.10a",
+      "title": "Time and Place (Venue) - Criminal Sexual Conduct Statements",
       "category": "optional",
       "group": "Sex Offenses",
       "position": "beginning",
+      "order": 1,
+      "autoIf": {
+        "mcl": [
+          "750.520b",
+          "750.520c",
+          "750.520d",
+          "750.520e"
+        ],
+        "offense": [
+          "criminal sexual conduct"
+        ]
+      },
       "mcl": [],
-      "text": "[PLACEHOLDER - confirm the number and title, then paste the official text here.]",
+      "text": "[PLACEHOLDER - paste the official text of M Crim JI 3.10a here.]",
+      "lastAmended": ""
+    },
+    {
+      "id": "opt-20-25",
+      "number": "20.25",
+      "title": "Testimony Need Not Be Corroborated",
+      "category": "optional",
+      "group": "Sex Offenses",
+      "position": "beginning",
+      "order": 2,
+      "autoIf": {
+        "mcl": [
+          "750.520b",
+          "750.520c",
+          "750.520d",
+          "750.520e"
+        ],
+        "offense": [
+          "criminal sexual conduct"
+        ]
+      },
+      "mcl": [],
+      "text": "[PLACEHOLDER - paste the official text of M Crim JI 20.25 here.]",
+      "lastAmended": ""
+    },
+    {
+      "id": "opt-20-26",
+      "number": "20.26",
+      "title": "Resistance Not Required",
+      "category": "optional",
+      "group": "Sex Offenses",
+      "position": "beginning",
+      "order": 3,
+      "autoIf": {
+        "mcl": [
+          "750.520b",
+          "750.520c",
+          "750.520d",
+          "750.520e"
+        ],
+        "offense": [
+          "criminal sexual conduct"
+        ]
+      },
+      "mcl": [],
+      "text": "[PLACEHOLDER - paste the official text of M Crim JI 20.26 here.]",
       "lastAmended": ""
     },
     {

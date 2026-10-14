@@ -147,6 +147,7 @@
         mcl: Array.isArray(e.mcl) ? e.mcl.map(String) : [],
         text: Array.isArray(e.text) ? e.text.join('\n') : String(e.text || ''),
         lastAmended: e.lastAmended || '',
+        ifApplicable: !!e.ifApplicable,
       });
     });
     return { errors, instructions: out, meta: (data && data.meta) || {} };
@@ -361,7 +362,7 @@
   function makeItem(ins, countId = null, auto = false) {
     return {
       uid: uid(), libId: ins.id, number: ins.number, title: ins.title, category: ins.category,
-      group: ins.group, position: ins.position, countId, text: ins.text, auto, edited: false,
+      group: ins.group, position: ins.position, ifApplicable: ins.ifApplicable, countId, text: ins.text, auto, edited: false,
     };
   }
 
@@ -487,6 +488,8 @@
     }
     const noNum = state.items.filter((it) => !it.number || /^tbd$/i.test(it.number)).map((it) => it.title);
     if (noNum.length) w.push({ level: 'warn', msg: `No M Crim JI number yet: ${noNum.join('; ')}.` });
+    const cond = state.items.filter((it) => it.ifApplicable).map((it) => it.number);
+    if (cond.length) w.push({ level: 'warn', msg: `Included only if applicable. Confirm each applies to this trial or remove it: M Crim JI ${cond.join(', ')}.` });
     const noTitle = state.items.filter((it) => !it.title.trim()).map((it) => it.number);
     if (noTitle.length) w.push({ level: 'warn', msg: `No title yet (heading will show only the number): M Crim JI ${noTitle.join(', ')}.` });
     return w;
@@ -587,6 +590,7 @@
           <span class="ri-idx">${i + 1}.</span>
           <span class="ri-title"><span class="num">M Crim JI ${esc(it.number)}</span>${titleHtml(it.title)}</span>
           <span class="tag ${it.category}">${it.category}</span>
+          ${it.ifApplicable ? '<span class="tag ph" title="Keep only if it applies to this trial">if applicable</span>' : ''}
           ${it.edited ? '<span class="tag">edited</span>' : ''}
           <span class="ri-tools">
             <select data-act="count" title="Which count fills {{COUNT}}, {{DATE}}, etc.">${countOpts(it.countId)}</select>

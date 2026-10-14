@@ -3,13 +3,13 @@
     "name": "Michigan Model Criminal Jury Instructions (M Crim JI) - office library",
     "libraryVersion": "0.1.0",
     "lastUpdated": "2026-10-14",
-    "note": "STARTER LIBRARY. All instruction text is placeholder text. Paste the official language from the Michigan Courts M Crim JI site into each 'text' field, then confirm the number, title, MCL list, and lastAmended date. Entries with number 'TBD' need the correct M Crim JI number. See README.md. Standard instructions are included in every set in the 'order' shown; entries with an empty title need the official title."
+    "note": "STARTER LIBRARY. All instruction text is placeholder text. Paste the official language from the Michigan Courts M Crim JI site into each 'text' field, then confirm the number, title, MCL list, and lastAmended date. Entries with number 'TBD' need the correct M Crim JI number. See README.md. Standard instructions are included in every set in the 'order' shown. Entries marked ifApplicable are included but flagged for review."
   },
   "instructions": [
     {
       "id": "std-1-1",
       "number": "1.1",
-      "title": "",
+      "title": "Preliminary Instructions to Prospective Jurors",
       "category": "standard",
       "group": "Chapter 1",
       "position": "beginning",
@@ -21,7 +21,7 @@
     {
       "id": "std-1-2",
       "number": "1.2",
-      "title": "",
+      "title": "Selection of Fair and Impartial Jury",
       "category": "standard",
       "group": "Chapter 1",
       "position": "beginning",
@@ -33,7 +33,7 @@
     {
       "id": "std-1-3",
       "number": "1.3",
-      "title": "",
+      "title": "Challenges",
       "category": "standard",
       "group": "Chapter 1",
       "position": "beginning",
@@ -45,7 +45,7 @@
     {
       "id": "std-1-4",
       "number": "1.4",
-      "title": "",
+      "title": "Juror Oath before Voir Dire",
       "category": "standard",
       "group": "Chapter 1",
       "position": "beginning",
@@ -57,7 +57,7 @@
     {
       "id": "std-1-5",
       "number": "1.5",
-      "title": "",
+      "title": "Introduction of Judge, Parties, Counsel, and Witnesses",
       "category": "standard",
       "group": "Chapter 1",
       "position": "beginning",
@@ -69,7 +69,7 @@
     {
       "id": "std-1-6",
       "number": "1.6",
-      "title": "",
+      "title": "Length of Trial",
       "category": "standard",
       "group": "Chapter 1",
       "position": "beginning",
@@ -81,7 +81,7 @@
     {
       "id": "std-1-7",
       "number": "1.7",
-      "title": "",
+      "title": "Health Questions",
       "category": "standard",
       "group": "Chapter 1",
       "position": "beginning",
@@ -93,7 +93,7 @@
     {
       "id": "std-1-8",
       "number": "1.8",
-      "title": "",
+      "title": "Reading of Information",
       "category": "standard",
       "group": "Chapter 1",
       "position": "beginning",
@@ -105,7 +105,7 @@
     {
       "id": "std-1-9",
       "number": "1.9",
-      "title": "",
+      "title": "Presumption of Innocence, Burden of Proof, and Reasonable Doubt",
       "category": "standard",
       "group": "Chapter 1",
       "position": "beginning",
@@ -117,7 +117,7 @@
     {
       "id": "std-1-10",
       "number": "1.10",
-      "title": "",
+      "title": "Referring to Jurors by Number",
       "category": "standard",
       "group": "Chapter 1",
       "position": "beginning",
@@ -129,7 +129,7 @@
     {
       "id": "std-2-1",
       "number": "2.1",
-      "title": "",
+      "title": "Juror Oath Following Selection",
       "category": "standard",
       "group": "Chapter 2",
       "position": "beginning",
@@ -141,7 +141,7 @@
     {
       "id": "std-2-2",
       "number": "2.2",
-      "title": "",
+      "title": "Written Copy of Instructions",
       "category": "standard",
       "group": "Chapter 2",
       "position": "beginning",
@@ -153,7 +153,7 @@
     {
       "id": "std-2-3",
       "number": "2.3",
-      "title": "",
+      "title": "Legal Principles",
       "category": "standard",
       "group": "Chapter 2",
       "position": "beginning",
@@ -165,7 +165,7 @@
     {
       "id": "std-2-4",
       "number": "2.4",
-      "title": "",
+      "title": "Elements of the Charge",
       "category": "standard",
       "group": "Chapter 2",
       "position": "beginning",
@@ -177,7 +177,7 @@
     {
       "id": "std-2-5",
       "number": "2.5",
-      "title": "",
+      "title": "Presumption of Innocence, Burden of Proof, and Reasonable Doubt",
       "category": "standard",
       "group": "Chapter 2",
       "position": "beginning",
@@ -189,7 +189,7 @@
     {
       "id": "std-2-6",
       "number": "2.6",
-      "title": "",
+      "title": "Trial Procedure",
       "category": "standard",
       "group": "Chapter 2",
       "position": "beginning",
@@ -201,7 +201,7 @@
     {
       "id": "std-2-7",
       "number": "2.7",
-      "title": "",
+      "title": "Function of Court and Jury",
       "category": "standard",
       "group": "Chapter 2",
       "position": "beginning",
@@ -213,7 +213,7 @@
     {
       "id": "std-2-8",
       "number": "2.8",
-      "title": "",
+      "title": "Judging Credibility and Weight of Evidence",
       "category": "standard",
       "group": "Chapter 2",
       "position": "beginning",
@@ -223,13 +223,25 @@
       "lastAmended": ""
     },
     {
-      "id": "std-2-10",
-      "number": "2.10",
-      "title": "",
+      "id": "std-2-9",
+      "number": "2.9",
+      "title": "Considering Only Evidence/What Evidence Is",
       "category": "standard",
       "group": "Chapter 2",
       "position": "beginning",
       "order": 19,
+      "mcl": [],
+      "text": "[PLACEHOLDER - paste the official text of M Crim JI 2.9 here.]",
+      "lastAmended": ""
+    },
+    {
+      "id": "std-2-10",
+      "number": "2.10",
+      "title": "Questions Not Evidence",
+      "category": "standard",
+      "group": "Chapter 2",
+      "position": "beginning",
+      "order": 20,
       "mcl": [],
       "text": "[PLACEHOLDER - paste the official text of M Crim JI 2.10 here.]",
       "lastAmended": ""
@@ -237,11 +249,11 @@
     {
       "id": "std-2-11",
       "number": "2.11",
-      "title": "",
+      "title": "Courts Questioning Not a Reflection of Opinion",
       "category": "standard",
       "group": "Chapter 2",
       "position": "beginning",
-      "order": 20,
+      "order": 21,
       "mcl": [],
       "text": "[PLACEHOLDER - paste the official text of M Crim JI 2.11 here.]",
       "lastAmended": ""
@@ -249,11 +261,11 @@
     {
       "id": "std-2-13",
       "number": "2.13",
-      "title": "",
+      "title": "Notifying Court of Inability to Hear or See Witness or Evidence",
       "category": "standard",
       "group": "Chapter 2",
       "position": "beginning",
-      "order": 21,
+      "order": 22,
       "mcl": [],
       "text": "[PLACEHOLDER - paste the official text of M Crim JI 2.13 here.]",
       "lastAmended": ""
@@ -261,11 +273,11 @@
     {
       "id": "std-2-14",
       "number": "2.14",
-      "title": "",
+      "title": "Objections",
       "category": "standard",
       "group": "Chapter 2",
       "position": "beginning",
-      "order": 22,
+      "order": 23,
       "mcl": [],
       "text": "[PLACEHOLDER - paste the official text of M Crim JI 2.14 here.]",
       "lastAmended": ""
@@ -273,11 +285,11 @@
     {
       "id": "std-2-15",
       "number": "2.15",
-      "title": "",
+      "title": "Disregard Out-of-Presence Hearings",
       "category": "standard",
       "group": "Chapter 2",
       "position": "beginning",
-      "order": 23,
+      "order": 24,
       "mcl": [],
       "text": "[PLACEHOLDER - paste the official text of M Crim JI 2.15 here.]",
       "lastAmended": ""
@@ -285,11 +297,11 @@
     {
       "id": "std-2-16",
       "number": "2.16",
-      "title": "",
+      "title": "Jurors Not To Discuss Case",
       "category": "standard",
       "group": "Chapter 2",
       "position": "beginning",
-      "order": 24,
+      "order": 25,
       "mcl": [],
       "text": "[PLACEHOLDER - paste the official text of M Crim JI 2.16 here.]",
       "lastAmended": ""
@@ -297,11 +309,11 @@
     {
       "id": "std-2-19",
       "number": "2.19",
-      "title": "",
+      "title": "Jurors Not to Consider Information from Outside the Courtroom",
       "category": "standard",
       "group": "Chapter 2",
       "position": "beginning",
-      "order": 25,
+      "order": 26,
       "mcl": [],
       "text": "[PLACEHOLDER - paste the official text of M Crim JI 2.19 here.]",
       "lastAmended": ""
@@ -309,11 +321,11 @@
     {
       "id": "std-2-20",
       "number": "2.20",
-      "title": "",
+      "title": "Notetaking Allowed",
       "category": "standard",
       "group": "Chapter 2",
       "position": "beginning",
-      "order": 26,
+      "order": 27,
       "mcl": [],
       "text": "[PLACEHOLDER - paste the official text of M Crim JI 2.20 here.]",
       "lastAmended": ""
@@ -321,11 +333,11 @@
     {
       "id": "std-2-25",
       "number": "2.25",
-      "title": "",
+      "title": "Number of Jurors",
       "category": "standard",
       "group": "Chapter 2",
       "position": "beginning",
-      "order": 27,
+      "order": 28,
       "mcl": [],
       "text": "[PLACEHOLDER - paste the official text of M Crim JI 2.25 here.]",
       "lastAmended": ""
@@ -333,11 +345,11 @@
     {
       "id": "std-2-26",
       "number": "2.26",
-      "title": "",
+      "title": "Penalty",
       "category": "standard",
       "group": "Chapter 2",
       "position": "beginning",
-      "order": 28,
+      "order": 29,
       "mcl": [],
       "text": "[PLACEHOLDER - paste the official text of M Crim JI 2.26 here.]",
       "lastAmended": ""
@@ -345,11 +357,11 @@
     {
       "id": "std-2-27",
       "number": "2.27",
-      "title": "",
+      "title": "Instructions to Be Taken As a Whole",
       "category": "standard",
       "group": "Chapter 2",
       "position": "beginning",
-      "order": 29,
+      "order": 30,
       "mcl": [],
       "text": "[PLACEHOLDER - paste the official text of M Crim JI 2.27 here.]",
       "lastAmended": ""
@@ -357,11 +369,11 @@
     {
       "id": "std-2-28",
       "number": "2.28",
-      "title": "",
+      "title": "Maintaining an Open Mind",
       "category": "standard",
       "group": "Chapter 2",
       "position": "beginning",
-      "order": 30,
+      "order": 31,
       "mcl": [],
       "text": "[PLACEHOLDER - paste the official text of M Crim JI 2.28 here.]",
       "lastAmended": ""
@@ -373,7 +385,7 @@
       "category": "standard",
       "group": "Chapter 3",
       "position": "beginning",
-      "order": 31,
+      "order": 32,
       "mcl": [],
       "text": "[PLACEHOLDER - paste the official text of M Crim JI 3.1 here.]",
       "lastAmended": ""
@@ -385,7 +397,7 @@
       "category": "standard",
       "group": "Chapter 3",
       "position": "beginning",
-      "order": 32,
+      "order": 33,
       "mcl": [],
       "text": "[PLACEHOLDER - paste the official text of M Crim JI 3.2 here.]",
       "lastAmended": ""
@@ -397,7 +409,7 @@
       "category": "standard",
       "group": "Chapter 3",
       "position": "beginning",
-      "order": 33,
+      "order": 34,
       "mcl": [],
       "text": "[PLACEHOLDER - paste the official text of M Crim JI 3.3 here.]",
       "lastAmended": ""
@@ -405,11 +417,12 @@
     {
       "id": "std-3-4",
       "number": "3.4",
-      "title": "",
+      "title": "Defendant – Impeachment By Prior Conviction",
       "category": "standard",
       "group": "Chapter 3",
       "position": "beginning",
-      "order": 34,
+      "order": 35,
+      "ifApplicable": true,
       "mcl": [],
       "text": "[PLACEHOLDER - paste the official text of M Crim JI 3.4 here.]",
       "lastAmended": ""
@@ -421,7 +434,7 @@
       "category": "standard",
       "group": "Chapter 3",
       "position": "beginning",
-      "order": 35,
+      "order": 36,
       "mcl": [],
       "text": "[PLACEHOLDER - paste the official text of M Crim JI 3.5 here.]",
       "lastAmended": ""
@@ -429,11 +442,11 @@
     {
       "id": "std-3-6",
       "number": "3.6",
-      "title": "Witnesses - Credibility",
+      "title": "Witnesses – Credibility",
       "category": "standard",
       "group": "Chapter 3",
       "position": "beginning",
-      "order": 36,
+      "order": 37,
       "mcl": [],
       "text": "[PLACEHOLDER - paste the official text of M Crim JI 3.6 here.]",
       "lastAmended": ""
@@ -441,11 +454,11 @@
     {
       "id": "std-4-1",
       "number": "4.1",
-      "title": "",
+      "title": "Defendant’s Statements As Evidence Against Defendant",
       "category": "standard",
       "group": "Chapter 4",
       "position": "beginning",
-      "order": 37,
+      "order": 38,
       "mcl": [],
       "text": "[PLACEHOLDER - paste the official text of M Crim JI 4.1 here.]",
       "lastAmended": ""
@@ -453,11 +466,11 @@
     {
       "id": "std-4-3",
       "number": "4.3",
-      "title": "",
+      "title": "Circumstantial Evidence",
       "category": "standard",
       "group": "Chapter 4",
       "position": "beginning",
-      "order": 38,
+      "order": 39,
       "mcl": [],
       "text": "[PLACEHOLDER - paste the official text of M Crim JI 4.3 here.]",
       "lastAmended": ""
@@ -465,11 +478,12 @@
     {
       "id": "std-4-5",
       "number": "4.5",
-      "title": "",
+      "title": "Prior Inconsistent Statement Used to Impeach Witness",
       "category": "standard",
       "group": "Chapter 4",
       "position": "beginning",
-      "order": 39,
+      "order": 40,
+      "ifApplicable": true,
       "mcl": [],
       "text": "[PLACEHOLDER - paste the official text of M Crim JI 4.5 here.]",
       "lastAmended": ""
@@ -477,11 +491,12 @@
     {
       "id": "std-4-6",
       "number": "4.6",
-      "title": "",
+      "title": "Judicial Notice",
       "category": "standard",
       "group": "Chapter 4",
       "position": "beginning",
-      "order": 40,
+      "order": 41,
+      "ifApplicable": true,
       "mcl": [],
       "text": "[PLACEHOLDER - paste the official text of M Crim JI 4.6 here.]",
       "lastAmended": ""
@@ -489,11 +504,12 @@
     {
       "id": "std-4-7",
       "number": "4.7",
-      "title": "",
+      "title": "Stipulation",
       "category": "standard",
       "group": "Chapter 4",
       "position": "beginning",
-      "order": 41,
+      "order": 42,
+      "ifApplicable": true,
       "mcl": [],
       "text": "[PLACEHOLDER - paste the official text of M Crim JI 4.7 here.]",
       "lastAmended": ""
@@ -501,11 +517,11 @@
     {
       "id": "std-5-2",
       "number": "5.2",
-      "title": "",
+      "title": "Weighting Conflicting Evidence – Number of Witnesses",
       "category": "standard",
       "group": "Chapter 5",
       "position": "beginning",
-      "order": 42,
+      "order": 43,
       "mcl": [],
       "text": "[PLACEHOLDER - paste the official text of M Crim JI 5.2 here.]",
       "lastAmended": ""
@@ -513,11 +529,11 @@
     {
       "id": "std-5-3",
       "number": "5.3",
-      "title": "",
+      "title": "Witness Who Has Been Interviewed by a Lawyer",
       "category": "standard",
       "group": "Chapter 5",
       "position": "beginning",
-      "order": 43,
+      "order": 44,
       "mcl": [],
       "text": "[PLACEHOLDER - paste the official text of M Crim JI 5.3 here.]",
       "lastAmended": ""
@@ -525,11 +541,11 @@
     {
       "id": "std-5-11",
       "number": "5.11",
-      "title": "",
+      "title": "Police Witness",
       "category": "standard",
       "group": "Chapter 5",
       "position": "beginning",
-      "order": 44,
+      "order": 45,
       "mcl": [],
       "text": "[PLACEHOLDER - paste the official text of M Crim JI 5.11 here.]",
       "lastAmended": ""
@@ -541,7 +557,7 @@
       "category": "standard",
       "group": "Chapter 3",
       "position": "end",
-      "order": 45,
+      "order": 46,
       "mcl": [],
       "text": "[PLACEHOLDER - paste the official text of M Crim JI 3.11 here.]",
       "lastAmended": ""
@@ -549,11 +565,11 @@
     {
       "id": "std-3-13",
       "number": "3.13",
-      "title": "",
+      "title": "Penalty",
       "category": "standard",
       "group": "Chapter 3",
       "position": "end",
-      "order": 46,
+      "order": 47,
       "mcl": [],
       "text": "[PLACEHOLDER - paste the official text of M Crim JI 3.13 here.]",
       "lastAmended": ""
@@ -561,11 +577,11 @@
     {
       "id": "std-3-14",
       "number": "3.14",
-      "title": "",
+      "title": "Communications with the Court",
       "category": "standard",
       "group": "Chapter 3",
       "position": "end",
-      "order": 47,
+      "order": 48,
       "mcl": [],
       "text": "[PLACEHOLDER - paste the official text of M Crim JI 3.14 here.]",
       "lastAmended": ""
@@ -573,11 +589,11 @@
     {
       "id": "std-3-15",
       "number": "3.15",
-      "title": "",
+      "title": "Exhibits",
       "category": "standard",
       "group": "Chapter 3",
       "position": "end",
-      "order": 48,
+      "order": 49,
       "mcl": [],
       "text": "[PLACEHOLDER - paste the official text of M Crim JI 3.15 here.]",
       "lastAmended": ""
@@ -585,11 +601,11 @@
     {
       "id": "std-3-16",
       "number": "3.16",
-      "title": "",
+      "title": "Written Instructions in the Jury Room",
       "category": "standard",
       "group": "Chapter 3",
       "position": "end",
-      "order": 49,
+      "order": 50,
       "mcl": [],
       "text": "[PLACEHOLDER - paste the official text of M Crim JI 3.16 here.]",
       "lastAmended": ""
@@ -597,11 +613,11 @@
     {
       "id": "std-3-12",
       "number": "3.12",
-      "title": "",
+      "title": "Deadlocked Jury",
       "category": "standard",
       "group": "Chapter 3",
       "position": "end",
-      "order": 50,
+      "order": 51,
       "mcl": [],
       "text": "[PLACEHOLDER - paste the official text of M Crim JI 3.12 here.]",
       "lastAmended": ""
@@ -609,11 +625,11 @@
     {
       "id": "std-3-11a",
       "number": "3.11A",
-      "title": "",
+      "title": "Replacement Juror",
       "category": "standard",
       "group": "Chapter 3",
       "position": "end",
-      "order": 51,
+      "order": 52,
       "mcl": [],
       "text": "[PLACEHOLDER - paste the official text of M Crim JI 3.11A here.]",
       "lastAmended": ""
@@ -621,11 +637,11 @@
     {
       "id": "std-3-23",
       "number": "3.23",
-      "title": "",
+      "title": "Verdict Form",
       "category": "standard",
       "group": "Chapter 3",
       "position": "end",
-      "order": 52,
+      "order": 53,
       "mcl": [],
       "text": "[PLACEHOLDER - paste the official text of M Crim JI 3.23 here.]",
       "lastAmended": ""

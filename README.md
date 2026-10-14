@@ -70,6 +70,7 @@ Use a current version of Chrome, Edge, or Firefox.
 | `category` | yes | `"standard"` (always included), `"elements"` (matched to counts by MCL), or `"optional"` (shown in the add-on checklist). |
 | `group` | no | Heading the instruction is listed under in the optional checklist (e.g. `"Evidence"`, `"Witnesses"`, `"Sex Offenses"`). |
 | `order` | no | For standard instructions: where it falls in every set (1 = first). Standard instructions follow `order`, not number. Any without an `order` go after the ones that have it, sorted by number. |
+| `ifApplicable` | no | `true` for standard instructions that only apply in some trials (e.g. 3.4, 4.5, 4.6, 4.7). They're still added to every set, but tagged "if applicable" in Review and listed in the export warnings so you confirm or remove them. |
 | `position` | no | For standard/optional instructions: `"beginning"` (default) or `"end"`. `"end"` keeps instructions like Deliberations and Verdict after the elements instructions. |
 | `mcl` | elements: yes | List of MCL sections the instruction covers. See *How MCL matching works*. Use `[]` for standard/optional. |
 | `text` | yes | The full instruction text, with placeholders. |
@@ -114,7 +115,7 @@ So if one statute has separate instructions by subsection (child abuse degrees, 
 ### Adding or retiring an instruction
 
 - **Add:** copy an existing entry, give it a new `id`, and fill in the fields.
-- **Change the default set:** every `"standard"` entry goes into every case, in `order` sequence. The starter file has 52 standard instructions (1.1 through 5.11, then 3.11, 3.13, 3.14, 3.15, 3.16, 3.12, 3.11A and 3.23 as the closing group). To drop one from the default set, change its category to `"optional"`. To add one, give it category `"standard"` and an `order`. Use `"position": "end"` to put it in the closing group after the elements instructions.
+- **Change the default set:** every `"standard"` entry goes into every case, in `order` sequence. The starter file has 53 standard instructions (1.1 through 5.11, then 3.11, 3.13, 3.14, 3.15, 3.16, 3.12, 3.11A and 3.23 as the closing group). To drop one from the default set, change its category to `"optional"`. To add one, give it category `"standard"` and an `order`. Use `"position": "end"` to put it in the closing group after the elements instructions.
 - **Retire:** delete the entry, or change its category to `"optional"` so it stays available but isn't added automatically.
 - After editing, update `meta.lastUpdated`. If you're using Option A, reload the file through the banner.
 - If the JSON is malformed, the app says so when it loads. A free JSON validator, or the editor in VS Code, will point to the line.

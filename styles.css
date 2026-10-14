@@ -122,6 +122,25 @@ input:focus, textarea:focus, select:focus { outline: 2px solid #bcd3f0; border-c
 .rawtext { margin-top: 12px; }
 .rawtext pre { max-height: 300px; overflow: auto; background: #f6f7f9; padding: 10px; border-radius: 6px; white-space: pre-wrap; }
 
+/* Count cards */
+.count-card { border-top: 1px solid var(--line); padding: 12px 0 6px; }
+.count-card label { margin-bottom: 8px; }
+.count-top { display: flex; gap: 10px; align-items: flex-end; }
+.count-top .grow { flex: 2; }
+.count-top .mcl { flex: 1.3; }
+.count-top .count-num { padding-bottom: 16px; min-width: 64px; }
+.count-top .btn { margin-bottom: 10px; }
+.mcl-ro { flex: 1.3; padding-bottom: 14px; font-size: .9rem; }
+.count-fields { margin-top: 2px; }
+.ph-name { font-family: Consolas, "SF Mono", Menlo, monospace; font-size: .72rem; color: #8a93a3; margin-left: 4px; }
+.count-lang summary { cursor: pointer; font-size: .85rem; color: var(--muted); margin-bottom: 6px; }
+.count-lang-tools { display: flex; justify-content: flex-end; margin-top: 6px; }
+.review-counts-wrap { border: 1px solid var(--line); border-radius: var(--radius); padding: 10px 14px; margin-bottom: 14px; background: #fafbfc; }
+.review-counts-wrap > summary { cursor: pointer; padding: 2px 0; }
+.review-counts-wrap .count-card:first-child { border-top: 0; }
+mark.alt { background: #fff176; color: inherit; border-radius: 2px; padding: 0 1px; }
+.tag.rule { background: #e3ecfa; color: #1d4370; }
+
 /* Counts */
 .count-row {
   display: grid; grid-template-columns: 56px 2.2fr 1.4fr 1.2fr 0.9fr 34px; gap: 8px; align-items: end;
@@ -200,6 +219,8 @@ input:focus, textarea:focus, select:focus { outline: 2px solid #bcd3f0; border-c
 @media (max-width: 900px) {
   .two-col, .grid3, .grid2 { grid-template-columns: 1fr; }
   .count-row { grid-template-columns: 1fr 1fr; }
+  .count-top { flex-wrap: wrap; }
+  .count-top .grow, .count-top .mcl, .mcl-ro { flex: 1 1 100%; }
   .count-num { grid-column: 1 / -1; padding: 0; }
   .sticky { position: static; }
   main, .topbar, .steps { padding-left: 16px; padding-right: 16px; }

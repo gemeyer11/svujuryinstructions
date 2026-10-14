@@ -69,7 +69,7 @@
         <button type="button" class="btn small" id="btn-add-count">+ Add count</button>
       </div>
       <div id="counts"></div>
-      <p class="muted small">MCL: list each citation separated by commas, e.g. <code>750.520b(1)(a)</code>. The first citation that matches an elements instruction is used. Complainant is optional and only fills <code>{{COMPLAINANT}}</code> (use initials).</p>
+      <p class="muted small">MCL: list every cite separated by commas, each subsection on its own, e.g. <code>750.520b(1)(a), 750.520b(2)(b)</code>. The charge map picks instructions from the full set of cites. Use initials for the complainant.</p>
     </div>
 
     <div class="actions">
@@ -111,6 +111,10 @@
         <h2>Review &amp; edit</h2>
         <span class="muted small">Drag <span class="kbd">&#8942;&#8942;</span> or use the arrows to reorder. Edits change this case only, not the library.</span>
       </div>
+      <details class="review-counts-wrap" open>
+        <summary><strong>Count details</strong> <span class="muted small">&mdash; these fill {{COMPLAINANT}}, {{ACT}}, {{DATES}}, {{LOCATION}} and pick bracketed alternatives. Add or remove counts, or change MCL cites, on the Case screen.</span></summary>
+        <div id="review-counts"></div>
+      </details>
       <div id="review-warnings"></div>
       <ol id="review-list" class="review-list"></ol>
     </div>
@@ -170,9 +174,9 @@
 <!-- Library picker (used when the page is opened directly from disk) -->
 <div class="modal hidden" id="lib-modal">
   <div class="modal-box">
-    <h2>Load the instruction library</h2>
-    <p>Your browser won't let a page opened directly from a folder read <code>instructions.json</code> on its own. Choose the file once; it will be remembered in this browser until you load a newer one.</p>
-    <label class="btn primary">Choose instructions.json<input type="file" id="lib-input" accept=".json,application/json" hidden></label>
+    <h2>Load the instruction files</h2>
+    <p>Your browser won't let a page opened directly from a folder read <code>instructions.json</code> and <code>charge-map.json</code> on its own. Choose both files once (hold Ctrl or &#8984; to select two). This browser will remember them until you load newer ones.</p>
+    <label class="btn primary">Choose instructions.json and charge-map.json<input type="file" id="lib-input" accept=".json,application/json" multiple hidden></label>
     <p class="muted small">Or start the app with a local web server &mdash; see README.md.</p>
   </div>
 </div>
@@ -183,6 +187,7 @@
 <script src="vendor/mammoth.browser.min.js"></script>
 <script src="vendor/docx.iife.js"></script>
 <script src="js/parse.js"></script>
+<script src="js/template.js"></script>
 <script src="js/export.js"></script>
 <script src="js/app.js"></script>
 </body>

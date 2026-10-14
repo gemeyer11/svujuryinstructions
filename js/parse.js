@@ -121,23 +121,37 @@
     return out;
   }
 
-  const MCL_PREFIXED = /\b(?:M\.?\s?C\.?\s?L\.?\s?A?\.?|MCLA)\s*§*\s*(\d{1,3}\.\d+[a-z]{0,2}(?:\s?\(\s?[0-9a-z]{1,4}\s?\))*)/gi;
-  const MCL_BARE = /(?:^|[\s(\[,;])((?:750|752|333|257|324|28|722|767|768|769|780|791)\.\d+[a-z]{0,2}(?:\([0-9a-z]{1,4}\))*)/gi;
+  const MCL_PREFIXED = /\b(?:M\.?\s?C\.?\s?L\.?\s?A?\.?|MCLA)\s*§*\s*(\d{1,3}\.\d+[a-z]{0,2}(?:\s?\(\s?[0-9a-z]{1,4}\s?\))*)(?![0-9a-z])/gi;
+  const MCL_BARE = /(?:^|[\s(\[,;])((?:750|752|333|257|324|28|722|767|768|769|780|791)\.\d+[a-z]{0,2}(?:\([0-9a-z]{1,4}\))*)(?![0-9a-z])/gi;
   const PACC = /\[\s*((?:750|752|333|257)\.\d+[A-Z0-9]*)\s*\]/g;
 
+  // Subsections tacked onto a cite: "750.520b(1)(a) and (2)(b)", "…(1)(a), (2)(b)".
+  const MORE_SUBS = /^\s*(?:,|;|and|&|\/)\s*(\(\s?[0-9]{1,3}\s?\)(?:\s?\(\s?[0-9a-z]{1,4}\s?\))*)/i;
+
+  // Every MCL cite in the text, each subsection kept separately, in order.
   function extractMcl(text) {
     const found = [];
     const add = (c) => {
       const n = normalizeMcl(c);
       if (n && !found.includes(n)) found.push(n);
     };
-    let m;
-    MCL_PREFIXED.lastIndex = 0;
-    while ((m = MCL_PREFIXED.exec(text))) add(m[1]);
-    if (!found.length) {
-      MCL_BARE.lastIndex = 0;
-      while ((m = MCL_BARE.exec(text))) add(m[1]);
-    }
+    const collect = (rx) => {
+      let m;
+      rx.lastIndex = 0;
+      while ((m = rx.exec(text))) {
+        add(m[1]);
+        // Pick up trailing subsections that leave off the section number.
+        const base = normalizeMcl(m[1]).replace(/\(.*$/, '');
+        let rest = text.slice(rx.lastIndex);
+        let more;
+        while ((more = MORE_SUBS.exec(rest))) {
+          add(base + more[1]);
+          rest = rest.slice(more[0].length);
+        }
+      }
+    };
+    collect(MCL_PREFIXED);
+    collect(MCL_BARE);
     if (!found.length) {
       PACC.lastIndex = 0;
       while ((m = PACC.exec(text))) {
@@ -223,6 +237,49 @@
     return m ? m[1] : '';
   }
 
+  // ---------- Count language -> complainant, act, location ----------
+
+  const INITIALS = String.raw`[A-Z]\.\s?[A-Z]\.(?:\s?[A-Z]\.)?`;
+  const NOT_INITIALS = /^(?:M\.C\.L\.?|A\.M\.|P\.M\.|U\.S\.|D\.O\.B\.?|P\.O\.|M\.S\.P\.)$/i;
+
+  function findComplainant(lang) {
+    // Labeled: "victim: A.B.", "complainant AB", "minor child, A.B."
+    let m = new RegExp(String.raw`\b(?:victim|complainant|minor(?:\s+child)?|child)(?:'s)?\s*(?:initials)?\s*[:,\-]?\s*\(?(${INITIALS}|[A-Z]{2,3}\b)`).exec(lang);
+    if (m && !NOT_INITIALS.test(m[1].replace(/\s/g, ''))) return m[1].replace(/\s/g, '');
+    // Otherwise the first set of dotted initials in the count.
+    const rx = new RegExp(String.raw`(?:^|[\s,(:;])(${INITIALS})(?=[\s,;:)]|$)`, 'g');
+    while ((m = rx.exec(lang))) {
+      const v = m[1].replace(/\s/g, '');
+      if (!NOT_INITIALS.test(v)) return v;
+    }
+    return '';
+  }
+
+  // "…, to wit: penis into vagina; contrary to MCL …" -> "penis into vagina"
+  function findAct(lang) {
+    const m = /\bto[\s-]?wit\s*[:,\-]?\s*([\s\S]+?)\s*(?=;|\bcontrary\s+to\b|\bin\s+violation\s+of\b|\[|\bFELONY\b|\bMISDEMEANOR\b|,\s*(?:with|upon|against|at|in|within|on|between|during|a\s+person|being|the\s+defendant|who|when|where|while)\b|\s+(?:on\s+or\s+about|between)\b|\s+with\s+(?:the\s+)?(?:victim|complainant)\b|$)/i.exec(lang);
+    const act = m ? clean(m[1]).replace(/[.,]+$/, '') : '';
+    // Some forms put the complainant after "to wit"; that's not the act.
+    return /^[A-Z]\.?\s?[A-Z]\.?(?:\s?[A-Z]\.?)?$/.test(act) ? '' : act;
+  }
+
+  const STREET = String.raw`(?:Street|St|Avenue|Ave|Road|Rd|Drive|Dr|Lane|Ln|Court|Ct|Boulevard|Blvd|Way|Circle|Cir|Place|Pl|Trail|Trl|Highway|Hwy|Parkway|Pkwy|Terrace|Ter)\.?`;
+
+  function findLocation(lang) {
+    let m = /\b(?:Location|Place\s+of\s+Offense|Offense\s+Location)\s*:\s*([^;\n]+?)(?=;|\s{2,}|$)/i.exec(lang);
+    if (m) return clean(m[1]);
+    const parts = [];
+    m = new RegExp(String.raw`\b(?:at|near)\s+(\d{1,6}\s+(?:[NSEW]\.?\s+)?[A-Za-z0-9.'\- ]{1,40}?\s${STREET})`, 'i').exec(lang);
+    if (m) parts.push(clean(m[1]));
+    m = /\b(?:[Ii]n|[Ww]ithin)\s+(?:[Tt]he\s+)?((?:[Cc]harter\s+)?(?:[Cc]ity|[Tt]ownship|[Vv]illage|CITY|TOWNSHIP|VILLAGE)\s+(?:of|OF)\s+[A-Z][A-Za-z.'\-]+(?:\s+[A-Z][A-Za-z.'\-]+){0,2})/.exec(lang);
+    if (m) parts.push(clean(m[1]));
+    else {
+      m = new RegExp(String.raw`${STREET}\s*,\s*([A-Z][A-Za-z.'\-]+(?:\s+[A-Z][A-Za-z.'\-]+){0,2})(?=\s*,|\s+(?:Oakland|Michigan|MI)\b)`).exec(lang);
+      if (m && parts.length) parts[0] += ', ' + m[1];
+    }
+    return parts.join(', ');
+  }
+
   function romanToInt(s) {
     const map = { I: 1, V: 5, X: 10, L: 50 };
     let total = 0;
@@ -273,12 +330,18 @@
         title = '';
       }
       const num = /^\d+$/.test(h.label) ? parseInt(h.label, 10) : romanToInt(h.label);
+      // Full count language: everything after the offense title, one paragraph.
+      const titleIdx = title ? lines.findIndex((l) => cleanOffenseTitle(l) === title) : -1;
+      const language = clean(lines.slice(titleIdx + 1).join(' ')) || clean(lines.join(' '));
       counts.push({
         number: num,
         description: title,
         mcl: extractMcl(body),
-        date: findDate(body),
-        complainant: '',
+        dates: findDate(body),
+        location: findLocation(language),
+        complainant: findComplainant(language),
+        act: findAct(language),
+        language,
       });
     });
 
@@ -295,7 +358,7 @@
     const t = (text || '').replace(/\r\n?/g, '\n').replace(/ /g, ' ');
     const counts = findCounts(t);
     const fallbackDate = headerDate(t);
-    counts.forEach((c) => { if (!c.date) c.date = fallbackDate; });
+    counts.forEach((c) => { if (!c.dates) c.dates = fallbackDate; });
     return {
       defendant: findDefendant(t),
       caseNumber: findCaseNumber(t),
@@ -304,7 +367,10 @@
     };
   }
 
-  const api = { fileToText, parseInformation, normalizeMcl, paccToMcl, extractMcl, mclMatchScore, itemsToLines };
+  const api = {
+    fileToText, parseInformation, normalizeMcl, paccToMcl, extractMcl, mclMatchScore, itemsToLines,
+    findComplainant, findAct, findLocation, findDate,
+  };
   root.InfoParser = api;
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
 })(typeof window !== 'undefined' ? window : globalThis);

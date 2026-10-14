@@ -1,0 +1,23 @@
+{
+  "meta": {
+    "name": "Charge map - which instructions each charge pulls in",
+    "lastUpdated": "2026-10-14",
+    "note": "Each rule ties a set of MCL cites on a count to an ordered list of M Crim JI numbers in instructions.json. When several rules match a count, the one with the most matching cites wins. See README.md."
+  },
+  "rules": [
+    {
+      "id": "csc1-under13-def17",
+      "label": "CSC 1st Degree – Person Under 13, Defendant 17 or Older",
+      "matchCites": ["750.520b(1)(a)", "750.520b(2)(b)"],
+      "matchText": ["criminal sexual conduct|csc", "first degree|1st degree"],
+      "instructions": ["20.1", "20.3", "20.30b"]
+    },
+    {
+      "id": "csc1-under13",
+      "label": "CSC 1st Degree – Person Under 13",
+      "matchCites": ["750.520b(1)(a)"],
+      "matchText": ["criminal sexual conduct|csc", "first degree|1st degree"],
+      "instructions": ["20.1", "20.3"]
+    }
+  ]
+}

@@ -659,6 +659,26 @@
       "lastAmended": ""
     },
     {
+      "id": "elem-20-3",
+      "number": "20.3",
+      "title": "",
+      "category": "elements",
+      "group": "Sex Offenses",
+      "mcl": [],
+      "text": "[PLACEHOLDER - paste the official text of M Crim JI 20.3 here. Pulled in by charge-map.json; it has no MCL list of its own.]",
+      "lastAmended": ""
+    },
+    {
+      "id": "elem-20-30b",
+      "number": "20.30b",
+      "title": "",
+      "category": "elements",
+      "group": "Sex Offenses",
+      "mcl": [],
+      "text": "[PLACEHOLDER - paste the official text of M Crim JI 20.30b here. Pulled in by charge-map.json; it has no MCL list of its own.]",
+      "lastAmended": ""
+    },
+    {
       "id": "elem-20-2",
       "number": "20.2",
       "title": "Criminal Sexual Conduct in the Second Degree",

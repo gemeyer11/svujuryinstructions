@@ -87,10 +87,19 @@
       blank(),
     ];
     const lineSpacing = Math.round(240 * (parseFloat(settings.spacing) || 1));
+    // A line may carry highlight markers around bracketed alternatives that
+    // couldn't be resolved; those runs are highlighted yellow.
     const textPara = (text, extra = {}) => {
-      const lead = /^[\t ]*/.exec(text)[0];
+      const T = root.Template;
+      const lead = /^[\t ]*/.exec(T.strip(text))[0];
       const depth = (lead.match(/\t/g) || []).length + Math.floor(lead.replace(/\t/g, '').length / 4);
-      return para(run(text.trim()), {
+      const segs = T.segments(text).filter((sg) => sg.text);
+      if (segs.length) {
+        segs[0].text = segs[0].text.replace(/^[\t ]+/, '');
+        segs[segs.length - 1].text = segs[segs.length - 1].text.replace(/[\t ]+$/, '');
+      }
+      const runs = segs.map((sg) => run(sg.text, sg.hl ? { highlight: 'yellow' } : {}));
+      return para(runs.length ? runs : [run('')], {
         spacing: { after: 160, line: lineSpacing },
         indent: depth ? { left: 720 * depth } : undefined,
         ...extra,
